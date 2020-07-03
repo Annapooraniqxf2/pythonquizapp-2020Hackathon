@@ -59,7 +59,7 @@
 			<div class="row mt-5">
             <div class="col-5"></div>
 			<div class="col-1"><input type="button" id="answerClick" value="Show Result"></div>
-                <div class="col-1"><button type="button" style="visibility:hidden;" id="nextButton" onClick="refreshPage()">Next</button>
+
     <script>
         function refreshPage() {
             window.location.reload();
@@ -70,7 +70,6 @@
 
     <script>
         $("#answerClick").click(function () {
-            document.getElementById('nextButton').style.visibility='visible'
             questionid = $("#questionId").val();
             questionid2 = document.getElementById("questionId");
             $.ajax({
