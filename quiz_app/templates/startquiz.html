@@ -1,0 +1,96 @@
+<!DOCTYPE html>
+<html lang="en">
+
+<head>
+    <meta charset="utf-8">
+    <meta name="viewport" content="width=device-width, initial-scale=1, shrink-to-fit=no">
+    <title>Quiz Applications</title>
+    <link href="https://netdna.bootstrapcdn.com/font-awesome/4.0.3/css/font-awesome.css" rel="stylesheet">
+    <link href="https://maxcdn.bootstrapcdn.com/bootstrap/4.3.1/css/bootstrap.min.css" rel="stylesheet"
+        id="bootstrap-css">
+    <script src="https://code.jquery.com/jquery-1.11.1.min.js"></script>
+    <script src="https://ajax.googleapis.com/ajax/libs/jquery/3.4.1/jquery.min.js"></script>
+    <link rel="stylesheet" href="https://stackpath.bootstrapcdn.com/bootstrap/4.3.1/css/bootstrap.min.css">
+    <script src="https://maxcdn.bootstrapcdn.com/bootstrap/4.0.0/js/bootstrap.min.js"></script>
+    <script src="https://stackpath.bootstrapcdn.com/bootstrap/4.3.1/js/bootstrap.min.js"></script>
+</head>
+
+<body>
+    <div class="container-fluid mt-5 mb-5">
+        <div>
+            <p class="align-content-center font-weight-bold"
+                style="font-family: Arial; font-size: 28px; line-height: 32px; text-align: center;">Qxf2 services</p>
+        </div>
+        <div style="border-top: 1px solid #000000;">
+            <div class="row mt-5">
+                <div class="col-3"></div>
+                <div class="col-6"><input type="button" class="btn btn-info" id="startQuiz" onclick="startQuiz()"
+                        value="Start Quiz">
+                    <div id="questionId" style="visibility:hidden;"></div>
+                    <div id="resultDiv"></div>
+                    <div class="col-3"></div>
+                </div>
+            </div>
+        </div>
+        <script>
+            function startQuiz() {
+                $.ajax({
+                    type: 'POST',
+                    url: '/startquiz',
+                    data: { 'id': 1 },
+                    success: function (result) {
+                        $("#resultDiv").html(result.question)
+                        $("#questionId").html(result.question_id)
+                    }
+                })
+            }
+        </script>
+        <div class="row mt-5">
+            <div class="col-3"></div>
+            <div class="col-6" id="answerDiv"><textarea id="pythonAnswer" name="w3review" rows="6" cols="70"></textarea required></div>
+			<div class="col-3"></div>
+    </div>
+    <div class="row mt-5">
+        <div class="col-3"></div>
+        <div class="col-6" id="answer"></div>
+        <div ></div>
+        <div class="col-3"></div>
+</div>
+			<div class="row mt-5">
+            <div class="col-5"></div>
+			<div class="col-1"><input type="button" id="answerClick" value="Show Result"></div>
+                <div class="col-1"><button type="button" style="visibility:hidden;" id="nextButton" onClick="refreshPage()">Next</button>
+    <script>
+        function refreshPage() {
+            window.location.reload();
+            startQuiz();
+        }
+    </script>
+                </div>
+
+    <script>
+        $("#answerClick").click(function () {
+            document.getElementById('nextButton').style.visibility='visible'
+            questionid = $("#questionId").val();
+            questionid2 = document.getElementById("questionId");
+            $.ajax({
+                type: 'POST',
+                url: '/answer',
+                data: {
+                    questionid: questionid2.innerHTML
+
+                },
+                success: function (result) {
+                    $("#answer").html(result.answer)
+                }
+            })
+        })
+    </script>
+			<div class="col-5" ></div>
+    </div>
+			<div class="mt-5" style="border-bottom: 1px solid #000000;"></div>
+		</div><div>
+
+</div>
+</body>
+</html>
